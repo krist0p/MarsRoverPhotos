@@ -1,4 +1,4 @@
-package com.example.marsroverphotos.Dto
+package com.example.marsroverphotos.network.Dto
 
 
 import com.google.gson.annotations.SerializedName

@@ -1,5 +1,6 @@
 package com.example.marsroverphotos
 
+import com.example.marsroverphotos.network.responses.PhotoApi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
