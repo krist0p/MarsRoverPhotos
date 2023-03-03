@@ -1,4 +1,4 @@
-package com.example.marsroverphotos
+package com.example.marsroverphotos.presentation
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class PhotosViewModel
+class MainScreenViewModel
 
 @Inject
     constructor(

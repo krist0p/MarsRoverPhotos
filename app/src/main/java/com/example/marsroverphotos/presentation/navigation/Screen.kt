@@ -1,4 +1,4 @@
-package com.example.marsroverphotos
+package com.example.marsroverphotos.presentation.navigation
 
 sealed class Screen(val route: String){
     object MainScreen: Screen(route = "main_screen")

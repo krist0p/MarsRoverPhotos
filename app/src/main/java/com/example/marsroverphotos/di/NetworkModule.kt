@@ -1,8 +1,6 @@
 package com.example.marsroverphotos.di
 
-import android.icu.text.StringPrepParseException
 import com.example.marsroverphotos.BuildConfig
-import com.example.marsroverphotos.NetworkModule.Companion.BASE_URL
 import com.example.marsroverphotos.network.responses.PhotoApi
 import dagger.Module
 import dagger.Provides
