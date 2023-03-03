@@ -7,14 +7,12 @@ import retrofit2.http.Query
 
 interface PhotoApi {
 
-    companion object{
-        const val key = BuildConfig.API_KEY
-    }
-    @GET("/mars-photos/api/v1/rovers/curiosity/photos?api_key=$key")
+
+    @GET("/mars-photos/api/v1/rovers/curiosity/photos?")
     suspend fun fetchAll(
-//    @Query("api_key") api_key: String = key,
-    @Query("page") page: Int,
-    @Query("sol") sol: Int
+        @Query("api_key") key: String,
+        @Query("page") page: Int,
+        @Query("sol") sol: Int,
     ): DtoPhotos
 
 }
