@@ -17,7 +17,7 @@ class PhotosViewModel(private val api: PhotoApi): ViewModel() {
     init{
         viewModelScope.launch(Dispatchers.IO) {
 
-            val photos = api.fetchAll().photos
+//            val photos = api.fetchAll().photos
 
             val photosFromRepo = repo.get(1,1000)
 
