@@ -9,19 +9,24 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -35,6 +40,7 @@ import com.example.marsroverphotos.ui.theme.*
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = hiltViewModel()){
 
@@ -52,6 +58,9 @@ fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = hi
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
 
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+
     Scaffold(
 
         scaffoldState = scaffoldState,
@@ -65,10 +74,7 @@ fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = hi
                 verticalArrangement = Arrangement.SpaceEvenly
             ) {
 
-
                 Spacer(modifier = Modifier.height(150.dp))
-
-
 
 
                 Box(modifier = Modifier
@@ -104,7 +110,8 @@ fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = hi
                         value = viewModel.query.value,
                         modifier = Modifier.align(Alignment.BottomCenter),
 
-                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
+                        keyboardActions = KeyboardActions(onDone = {keyboardController?.hide()}),
 
 
 
@@ -138,10 +145,6 @@ fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = hi
 
 
 
-
-
-
-
                 Spacer(modifier = Modifier.weight(1f))
 
 
@@ -150,8 +153,8 @@ fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = hi
 
                     Button(
                         onClick = {
-//                            viewModel.changeQuery(sol.toString())
                             viewModel.getData()
+                            scope.launch { scaffoldState.drawerState.close()}
                         },
                         modifier = Modifier
                             .padding(30.dp)
