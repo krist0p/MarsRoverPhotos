@@ -12,7 +12,7 @@ interface PhotoApi {
     suspend fun fetchAll(
         @Query("api_key") key: String,
         @Query("page") page: Int,
-        @Query("sol") sol: Int,
+        @Query("sol") sol: String,
     ): DtoPhotos
 
 }

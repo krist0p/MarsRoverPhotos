@@ -18,4 +18,5 @@ data class DtoPhotoX(
     val earthDate: String,
     @SerializedName("rover")
     val rover: DtoRover
-)
+) {
+}

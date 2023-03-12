@@ -28,8 +28,9 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideApiKey(): String{
-        return BuildConfig.API_KEY
+        return "DEMO_KEY"
     }
 
 }
 
+//BuildConfig.API_KEY

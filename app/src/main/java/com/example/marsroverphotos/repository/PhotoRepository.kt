@@ -4,5 +4,5 @@ import com.example.marsroverphotos.network.Dto.DtoPhotos
 
 interface PhotoRepository {
 
-    suspend fun get(token: String, page: Int, sol: Int): DtoPhotos
+    suspend fun get(token: String, page: Int, sol: String): DtoPhotos
 }

@@ -9,7 +9,7 @@ import com.example.marsroverphotos.presentation.navigation.Screen
 
 @Composable
 fun NavGraph(navHostController: NavHostController){
-    NavHost(navController = navHostController, startDestination = Screen.FilterResultsScreen.route){
+    NavHost(navController = navHostController, startDestination = Screen.MainScreen.route){
         composable(route = Screen.MainScreen.route){ MainScreen(navHostController) }
         composable(route = Screen.FilterResultsScreen.route){ FilterResults(navHostController)}
     }

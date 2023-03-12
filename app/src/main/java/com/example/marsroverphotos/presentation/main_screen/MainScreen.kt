@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -21,24 +22,41 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.marsroverphotos.presentation.MainScreenViewModel
+import com.example.marsroverphotos.presentation.main_screen.MainScreenViewModel
+import com.example.marsroverphotos.presentation.main_screen.PAGE_SIZE
 import com.example.marsroverphotos.presentation.navigation.Screen
+import com.example.marsroverphotos.ui.theme.BlackBean1
+import com.example.marsroverphotos.ui.theme.BlackBean3
+import com.example.marsroverphotos.ui.theme.Peach
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
 fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = hiltViewModel()){
 
+
+    val viewModel = viewModel
+
     val state = viewModel.state
-//    val state = viewModel.state.collectAsState()
+
+    val loading = viewModel.loading.value
+
+    val page = viewModel.page.value
+
     Scaffold(
         topBar = {
-            TopAppBar {
+            TopAppBar(
+                modifier = Modifier
+                    .height(60.dp),
+                backgroundColor = BlackBean1
+
+                ) {
                 Icon(
                     Icons.Outlined.Menu,
+                    tint = Peach,
                     contentDescription = null,
                     modifier = Modifier
                         .padding(12.dp)
-                        .height(70.dp)
+                        .size(40.dp)
                         .clickable {
                             navController.navigate(Screen.FilterResultsScreen.route)
                         }
@@ -46,19 +64,31 @@ fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = hi
             }
         }
     ) {
-        Column(modifier = Modifier.padding(it)){
+        Column(modifier = Modifier
+            .padding(it)
+            .background(BlackBean3)){
 
             LazyColumn{
-                items(state.value){
+                itemsIndexed(state.value){ index, photo ->
+
+
+                    viewModel.onChangeRecipeScrollPosition(index)
+
+
+                    if((index + 1) >= (page * PAGE_SIZE) && !loading){
+                        viewModel.nextPage()
+                    }
 
                     Card(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(20.dp),
                         shape = RoundedCornerShape(15.dp),
                         elevation = 5.dp
                     ){
                         Box(modifier = Modifier.height(200.dp)){
                             GlideImage(
-                                imageModel = {it.imgSrc.toHttpsPrefix()},
+                                imageModel = {photo.imgSrc.toHttpsPrefix()},
                                 success = {
                                     Image(
                                         bitmap = it.imageBitmap!!,
@@ -88,10 +118,10 @@ fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = hi
                                 contentAlignment = Alignment.BottomStart
                             ){
                                 Column() {
-                                    Text("Earth date: ${it.earthDate}", style = TextStyle(color = Color.White), fontSize = 16.sp)
-                                    Text("Rover Name: ${it.rover.name}", style = TextStyle(color = Color.White), fontSize = 16.sp)
-                                    Text("Sol: ${it.sol}", style = TextStyle(color = Color.White), fontSize = 16.sp)
-                                    Text("Camera: ${it.camera.name}", style = TextStyle(color = Color.White), fontSize = 16.sp)
+                                    Text("Earth date: ${photo.earthDate}", style = TextStyle(color = Color.White), fontSize = 16.sp)
+                                    Text("Rover Name: ${photo.rover.name}", style = TextStyle(color = Color.White), fontSize = 16.sp)
+                                    Text("Sol: ${photo.sol}", style = TextStyle(color = Color.White), fontSize = 16.sp)
+                                    Text("Camera: ${photo.camera.name}", style = TextStyle(color = Color.White), fontSize = 16.sp)
 
                                 }
 
