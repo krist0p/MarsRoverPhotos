@@ -29,7 +29,6 @@ fun FilterResults(navController: NavController, viewModel: MainScreenViewModel =
     var page by remember { mutableStateOf(TextFieldValue("")) }
 
 
-    val query = viewModel.query.value
 
 
 
@@ -65,7 +64,7 @@ fun FilterResults(navController: NavController, viewModel: MainScreenViewModel =
             )
 
             BasicTextField(
-                value = query,
+                value = sol,
             modifier = Modifier.align(Alignment.BottomCenter),
 
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),

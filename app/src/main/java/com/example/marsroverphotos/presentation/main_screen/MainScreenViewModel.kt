@@ -29,7 +29,7 @@ class MainScreenViewModel
 
     val state: MutableState<List<DtoPhotoX>> = mutableStateOf(listOf())
 
-    val query = mutableStateOf("")
+    val query = mutableStateOf("1000")
 
     val loading = mutableStateOf(false)
 
@@ -38,22 +38,35 @@ class MainScreenViewModel
     var recipeListScrollPosition = 0
 
     init {
-        getData()
+//        getData()
     }
 
     fun getData() {
+
+        loading.value = true
+
+        resetSearchState()
         viewModelScope.launch(Dispatchers.IO) {
             val photosFromRepo = repository.get(
                 token = apiKey,
                 page = 1,
-                sol = "1000"
+//                sol =  "1000"
+                sol = query.value
             )
 
             state.value = photosFromRepo.photos
+            loading.value = false
 
         }
     }
 
+
+
+    fun resetSearchState(){
+        state.value = listOf()
+        page.value = 1
+        onChangeRecipeScrollPosition(0)
+    }
 
     fun nextPage() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -68,7 +81,7 @@ class MainScreenViewModel
                     val result = repository.get(
                         token = apiKey,
                         page = page.value,
-                        sol = "1000"
+                        sol = query.value
                     )
                     appendList(result.photos)
                 }
@@ -92,23 +105,10 @@ class MainScreenViewModel
         recipeListScrollPosition = position
     }
 
-//    fun clearSelectedCategory(){
-//        selectedCategory.value = null
-//    }
 
-//    fun resetSearchState(){
-//        recipes.value = listOf()
-//        page.value = 1
-//        onChangeRecipeScrollPosition(0)
-//        if(selectedCategory.value?.value != query.value)
-//            clearSelectedCategory()
-//    }
-
-//    fun onSelectedCategoryChanged(category: String){
-//        val newCategory = getFoodCategory(category)
-//        selectedCategory.value = newCategory
-//        onQueryChanged(category)
-//    }
+    fun changeQuery(newQuery: String){
+        query.value = newQuery
+    }
 
 
 }
