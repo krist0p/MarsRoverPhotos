@@ -1,5 +1,6 @@
 package com.example.marsroverphotos
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -39,6 +40,8 @@ import com.example.marsroverphotos.presentation.navigation.Screen
 import com.example.marsroverphotos.ui.theme.*
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.launch
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -175,9 +178,6 @@ fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = hi
                     }
                 }
 
-
-
-
             }        },
 
         topBar = {
@@ -210,9 +210,7 @@ fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = hi
             LazyColumn{
                 itemsIndexed(state.value){ index, photo ->
 
-
                     viewModel.onChangeRecipeScrollPosition(index)
-
 
                     if((index + 1) >= (page * PAGE_SIZE) && !loading){
                         viewModel.nextPage()
@@ -221,11 +219,28 @@ fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = hi
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(20.dp),
+                            .padding(20.dp)
+                            .clickable {
+
+                                val link = URLEncoder.encode(photo.imgSrc, StandardCharsets.UTF_8.toString())
+
+                                navController.navigate("view_photo_screen"
+                                        + "/"+ link
+                                        +"/"+ photo.earthDate
+                                        +"/"+ photo.rover.name
+                                        +"/"+ photo.sol
+                                        +"/"+ photo.camera.name
+                                        +"/"+ photo.rover.landingDate
+                                        +"/"+ photo.rover.status
+                                )
+                            },
                         shape = RoundedCornerShape(15.dp),
                         elevation = 5.dp
                     ){
-                        Box(modifier = Modifier.height(200.dp)){
+                        Box(modifier = Modifier
+                            .height(200.dp)
+
+                            ){
                             GlideImage(
                                 imageModel = {photo.imgSrc.toHttpsPrefix()},
                                 success = {
@@ -235,6 +250,7 @@ fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = hi
                                         contentDescription = null,
                                         modifier = Modifier
                                             .fillMaxSize()
+
                                     )
                                 }
                             )

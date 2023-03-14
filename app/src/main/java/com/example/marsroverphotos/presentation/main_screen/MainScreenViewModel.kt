@@ -50,7 +50,6 @@ class MainScreenViewModel
             val photosFromRepo = repository.get(
                 token = apiKey,
                 page = 1,
-//                sol =  "1000"
                 sol = query.value
             )
 
