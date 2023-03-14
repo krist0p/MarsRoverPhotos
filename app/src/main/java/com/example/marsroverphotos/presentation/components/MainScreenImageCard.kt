@@ -14,11 +14,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.marsroverphotos.network.Dto.DtoPhotoX
 import com.example.marsroverphotos.presentation.util.toHttpsPrefix
+import com.example.marsroverphotos.ui.theme.bebasNeueFamily
 import com.skydoves.landscapist.glide.GlideImage
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
@@ -85,10 +87,9 @@ fun MainScreenImageCard(
                 contentAlignment = Alignment.BottomStart
             ){
                 Column {
-                    Text("Earth date: ${photo.earthDate}", style = TextStyle(color = Color.White), fontSize = 16.sp)
-                    Text("Rover Name: ${photo.rover.name}", style = TextStyle(color = Color.White), fontSize = 16.sp)
-                    Text("Sol: ${photo.sol}", style = TextStyle(color = Color.White), fontSize = 16.sp)
-                    Text("Camera: ${photo.camera.name}", style = TextStyle(color = Color.White), fontSize = 16.sp)
+                    Text("Earth date: ${photo.earthDate}", style = TextStyle(color = Color.White, fontFamily = bebasNeueFamily, fontWeight = FontWeight.Light), fontSize = 16.sp)
+                    Text("Rover Name: ${photo.rover.name}", style = TextStyle(color = Color.White, fontFamily = bebasNeueFamily, fontWeight = FontWeight.Light), fontSize = 16.sp)
+                    Text("Sol: ${photo.sol}", style = TextStyle(color = Color.White, fontFamily = bebasNeueFamily, fontWeight = FontWeight.Light), fontSize = 16.sp)
 
                 }
 
