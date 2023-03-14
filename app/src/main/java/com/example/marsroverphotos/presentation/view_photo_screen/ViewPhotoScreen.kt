@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.marsroverphotos.presentation.main_screen.toHttpsPrefix
+import com.example.marsroverphotos.presentation.util.toHttpsPrefix
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
