@@ -1,19 +1,16 @@
-package com.example.marsroverphotos
+package com.example.marsroverphotos.presentation.main_screen
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.runtime.*
@@ -29,14 +26,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.marsroverphotos.presentation.main_screen.MainScreenViewModel
-import com.example.marsroverphotos.presentation.main_screen.PAGE_SIZE
-import com.example.marsroverphotos.presentation.navigation.Screen
 import com.example.marsroverphotos.ui.theme.*
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.launch
@@ -48,7 +41,6 @@ import java.nio.charset.StandardCharsets
 fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = hiltViewModel()){
 
 
-    val viewModel = viewModel
 
     val state = viewModel.state
 
@@ -202,9 +194,9 @@ fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = hi
                 )
             }
         }
-    ) {
+    ) { paddingValues ->
         Column(modifier = Modifier
-            .padding(it)
+            .padding(paddingValues)
             .background(BlackBean3)){
 
             LazyColumn{
@@ -272,7 +264,7 @@ fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = hi
                                 .padding(12.dp),
                                 contentAlignment = Alignment.BottomStart
                             ){
-                                Column() {
+                                Column {
                                     Text("Earth date: ${photo.earthDate}", style = TextStyle(color = Color.White), fontSize = 16.sp)
                                     Text("Rover Name: ${photo.rover.name}", style = TextStyle(color = Color.White), fontSize = 16.sp)
                                     Text("Sol: ${photo.sol}", style = TextStyle(color = Color.White), fontSize = 16.sp)
@@ -293,7 +285,7 @@ fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = hi
 
 }
 
-fun String.toHttpsPrefix(): String? = if (isNotEmpty() && !startsWith("https://") && !startsWith("http://")) {
+fun String.toHttpsPrefix(): String = if (isNotEmpty() && !startsWith("https://") && !startsWith("http://")) {
     "https://$this"
 } else if (startsWith("http://")) {
     replace("http://", "https://")

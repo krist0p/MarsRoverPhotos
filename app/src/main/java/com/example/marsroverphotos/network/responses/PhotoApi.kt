@@ -1,6 +1,5 @@
 package com.example.marsroverphotos.network.responses
 
-import com.example.marsroverphotos.BuildConfig
 import com.example.marsroverphotos.network.Dto.DtoPhotos
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -1,4 +1,4 @@
-package com.example.marsroverphotos.presentation.ViewPhotoScreen
+package com.example.marsroverphotos.presentation.view_photo_screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.marsroverphotos.toHttpsPrefix
+import com.example.marsroverphotos.presentation.main_screen.toHttpsPrefix
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
@@ -54,7 +54,7 @@ fun ViewPhotoScreen(
             )
         }
 
-        Text(text = "Earth date: ${earthDate!!}",)
+        Text(text = "Earth date: ${earthDate!!}")
         Text(text = "Rover Name: ${roverName!!}")
         Text(text = "Sol: ${sol!!}")
         Text(text = "Camera: ${cameraName!!}")

@@ -2,15 +2,12 @@ package com.example.marsroverphotos.presentation.main_screen
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.marsroverphotos.network.Dto.DtoPhotoX
-import com.example.marsroverphotos.network.Dto.DtoPhotos
 import com.example.marsroverphotos.repository.PhotoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,7 +32,7 @@ class MainScreenViewModel
 
     val page = mutableStateOf(1)
 
-    var recipeListScrollPosition = 0
+    private var recipeListScrollPosition = 0
 
     init {
 //        getData()
@@ -61,7 +58,7 @@ class MainScreenViewModel
 
 
 
-    fun resetSearchState(){
+    private fun resetSearchState(){
         state.value = listOf()
         page.value = 1
         onChangeRecipeScrollPosition(0)
